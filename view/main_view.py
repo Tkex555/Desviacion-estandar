@@ -4,13 +4,13 @@ from controller.controller import (
     calcular_desviacion_y_guardar
 )
 from model.modelo import validar_lista_numerica
-
+# menu principal
 def main():
     print("¿Cómo desea calcular la desviación estándar?")
     print("1. Manual")
     print("2. Automático (usando numpy, valores fijos)")
     opcion = input("Ingrese 1 o 2: ").strip()
-
+    #opcion de entrada del usuario
     if opcion == "1":
         entrada = input("Ingrese los valores separados por espacios: ").strip()
         try:
@@ -21,6 +21,7 @@ def main():
         if not validar_lista_numerica(speed) or not speed:
             print("No se ingresaron valores válidos.")
             return
+        #valores mostrados en la consola
         desviacion, exito, media, mediana, moda = calcular_desviacion_y_guardar('manual', speed)
         print(f"Desviación estándar (manual): {desviacion}")
         print(f"Media: {media}")
