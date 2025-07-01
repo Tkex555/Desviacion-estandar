@@ -21,13 +21,23 @@ def main():
         if not validar_lista_numerica(speed) or not speed:
             print("No se ingresaron valores válidos.")
             return
-        desviacion = calcular_desviacion_y_guardar('manual', speed)
+        desviacion, exito, media, mediana, moda = calcular_desviacion_y_guardar('manual', speed)
         print(f"Desviación estándar (manual): {desviacion}")
+        print(f"Media: {media}")
+        print(f"Mediana: {mediana}")
+        print(f"Moda: {moda}")
+        if exito:
+            print("Medición guardada en la base de datos.")
         graficar_speed(speed, 'b', 'Valores de Speed (manual)')
     elif opcion == "2":
         speed = get_speed_automatico()
-        desviacion = calcular_desviacion_y_guardar('automatico', speed)
+        desviacion, exito, media, mediana, moda = calcular_desviacion_y_guardar('automatico', speed)
         print(f"Desviación estándar (automático): {desviacion}")
+        print(f"Media: {media}")
+        print(f"Mediana: {mediana}")
+        print(f"Moda: {moda}")
+        if exito:
+            print("Medición guardada en la base de datos.")
         graficar_speed(speed, 'g', 'Valores de Speed (automático)')
     else:
         print("Opción no válida.")

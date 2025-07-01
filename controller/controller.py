@@ -1,6 +1,7 @@
 from model.conexion import guardar_medicion
 import numpy as np
 import matplotlib.pyplot as plt
+from statistics import median, mode, StatisticsError
 
 def get_speed_automatico():
     return [86, 87, 88, 86, 87, 85, 86]
@@ -23,13 +24,19 @@ def graficar_speed(speed, color, titulo):
     plt.show()
 
 def calcular_desviacion_y_guardar(metodo, speed):
+    media = float(np.mean(speed))
+    mediana = float(median(speed))
+    try:
+        moda = float(mode(speed))
+    except StatisticsError:
+        moda = float('nan')
     if metodo == 'manual':
         desviacion = float(desviacion_estandar_manual(speed))
-        guardar_medicion(speed, desviacion, 'manual')
-        return desviacion
+        exito = guardar_medicion(speed, desviacion, 'manual', media, mediana, moda)
+        return desviacion, exito, media, mediana, moda
     elif metodo == 'automatico':
         desviacion = float(np.std(speed))
-        guardar_medicion(speed, desviacion, 'automatico')
-        return desviacion
+        exito = guardar_medicion(speed, desviacion, 'automatico', media, mediana, moda)
+        return desviacion, exito, media, mediana, moda
     else:
-        raise ValueError('Método no válido')
+        return None, False, None, None, None

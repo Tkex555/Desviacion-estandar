@@ -5,8 +5,8 @@ def conectar_db():
     try:
         conexion = mysql.connector.connect(
             host='localhost',
-            user='root',  # Cambia por tu usuario de MySQL
-            password='',  # Cambia por tu contraseña de MySQL
+            user='root', 
+            password='',
             database='machine_learning_db'
         )
         return conexion
@@ -14,16 +14,16 @@ def conectar_db():
         print(f"Error al conectar a la base de datos: {e}")
         return None
 
-def guardar_medicion(valores, desviacion, metodo):
+def guardar_medicion(valores, desviacion, metodo, media, mediana, moda):
     conexion = conectar_db()
     if conexion:
         try:
             cursor = conexion.cursor()
             consulta = """
-                INSERT INTO mediciones (valores, desviacion_estandar, metodo)
-                VALUES (%s, %s, %s)
+                INSERT INTO mediciones (valores, desviacion_estandar, metodo, media, mediana, moda)
+                VALUES (%s, %s, %s, %s, %s, %s)
             """
-            cursor.execute(consulta, (" ".join(map(str, valores)), desviacion, metodo))
+            cursor.execute(consulta, (" ".join(map(str, valores)), desviacion, metodo, media, mediana, moda))
             conexion.commit()
             print("Medición guardada en la base de datos.")
             return True
