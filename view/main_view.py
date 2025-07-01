@@ -28,7 +28,7 @@ def main():
         print(f"Moda: {moda}")
         if exito:
             print("Medición guardada en la base de datos.")
-        graficar_speed(speed, 'b', 'Valores de Speed (manual)', moda=moda, media=media)
+        graficar_speed(speed, 'b', 'Valores de Speed (manual)', moda=moda, media=media, mediana=mediana)
     elif opcion == "2":
         speed = get_speed_automatico()
         desviacion, exito, media, mediana, moda = calcular_desviacion_y_guardar('automatico', speed)
@@ -38,7 +38,7 @@ def main():
         print(f"Moda: {moda}")
         if exito:
             print("Medición guardada en la base de datos.")
-        graficar_speed(speed, 'g', 'Valores de Speed (automático)', moda=moda, media=media)
+        graficar_speed(speed, 'g', 'Valores de Speed (automático)', moda=moda, media=media, mediana=mediana)
     else:
         print("Opción no válida.")
 
