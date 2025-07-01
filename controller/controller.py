@@ -1,0 +1,35 @@
+from model.conexion import guardar_medicion
+import numpy as np
+import matplotlib.pyplot as plt
+
+def get_speed_automatico():
+    return [86, 87, 88, 86, 87, 85, 86]
+
+def desviacion_estandar_manual(datos):
+    media = sum(datos) / len(datos)
+    diferencias_cuadradas = [(x - media) ** 2 for x in datos]
+    varianza = sum(diferencias_cuadradas) / len(datos)
+    desviacion = varianza ** 0.5
+    return desviacion
+
+def graficar_speed(speed, color, titulo):
+    plt.figure(figsize=(8, 4))
+    plt.plot(speed, marker='o', linestyle='-', color=color, label='Speed')
+    plt.title(titulo)
+    plt.xlabel('Índice')
+    plt.ylabel('Valor')
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+
+def calcular_desviacion_y_guardar(metodo, speed):
+    if metodo == 'manual':
+        desviacion = float(desviacion_estandar_manual(speed))
+        guardar_medicion(speed, desviacion, 'manual')
+        return desviacion
+    elif metodo == 'automatico':
+        desviacion = float(np.std(speed))
+        guardar_medicion(speed, desviacion, 'automatico')
+        return desviacion
+    else:
+        raise ValueError('Método no válido')
