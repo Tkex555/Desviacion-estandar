@@ -25,7 +25,6 @@ def guardar_medicion(valores, desviacion, metodo, media, mediana, moda):
             """
             cursor.execute(consulta, (" ".join(map(str, valores)), desviacion, metodo, media, mediana, moda))
             conexion.commit()
-            print("Medición guardada en la base de datos.")
             return True
         except Exception as e:
             print(f"Error al guardar la medición: {e}")
