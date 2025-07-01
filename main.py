@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from model.conexion import guardar_medicion
 
 # Datos fijos para el modo automático
 def get_speed_automatico():
@@ -38,13 +39,15 @@ def main():
         if not speed:
             print("No se ingresaron valores válidos.")
             return
-        desviacion = desviacion_estandar_manual(speed)
+        desviacion = float(desviacion_estandar_manual(speed))
         print(f"Desviación estándar (manual): {desviacion}")
+        guardar_medicion(speed, desviacion, 'manual')
         graficar_speed(speed, 'b', 'Valores de Speed (manual)')
     elif opcion == "2":
         speed = get_speed_automatico()
-        desviacion = np.std(speed)
+        desviacion = float(np.std(speed))
         print(f"Desviación estándar (automático): {desviacion}")
+        guardar_medicion(speed, desviacion, 'automatico')
         graficar_speed(speed, 'g', 'Valores de Speed (automático)')
     else:
         print("Opción no válida.")
