@@ -13,9 +13,11 @@ def desviacion_estandar_manual(datos):
     desviacion = varianza ** 0.5
     return desviacion
 
-def graficar_speed(speed, color, titulo):
+def graficar_speed(speed, color, titulo, moda=None):
     plt.figure(figsize=(8, 4))
     plt.plot(speed, marker='o', linestyle='-', color=color, label='Speed')
+    if moda is not None:
+        plt.axhline(y=moda, color='orange', linestyle='--', label=f'Moda: {moda}')
     plt.title(titulo)
     plt.xlabel('Índice')
     plt.ylabel('Valor')
