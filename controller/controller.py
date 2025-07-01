@@ -2,29 +2,31 @@ from model.conexion import guardar_medicion
 import numpy as np
 import matplotlib.pyplot as plt
 from statistics import median, mode, StatisticsError
-
+# los valores para la forma automática
 def get_speed_automatico():
     return [86, 87, 88, 86, 87, 85, 86]
-
+# Función para calcular la desviación estándar manualmente
 def desviacion_estandar_manual(datos):
     media = sum(datos) / len(datos)
     diferencias_cuadradas = [(x - media) ** 2 for x in datos]
     varianza = sum(diferencias_cuadradas) / len(datos)
     desviacion = varianza ** 0.5
     return desviacion
-
-def graficar_speed(speed, color, titulo, moda=None):
+# la grafica 
+def graficar_speed(speed, color, titulo, moda=None, media=None):
     plt.figure(figsize=(8, 4))
     plt.plot(speed, marker='o', linestyle='-', color=color, label='Speed')
     if moda is not None:
         plt.axhline(y=moda, color='orange', linestyle='--', label=f'Moda: {moda}')
+    if media is not None:
+        plt.axhline(y=media, color='red', linestyle='-.', label=f'Media: {media}')
     plt.title(titulo)
     plt.xlabel('Índice')
     plt.ylabel('Valor')
     plt.grid(True)
     plt.legend()
     plt.show()
-
+# calcular desviación y guardar en la base de datos
 def calcular_desviacion_y_guardar(metodo, speed):
     media = float(np.mean(speed))
     mediana = float(median(speed))
